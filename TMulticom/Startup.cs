@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TMulticom.Data;
+using TMulticom.Data.Repositories;
+using TMulticom.Domain.Models;
 using TMulticom.Models;
 
 namespace TMulticom
@@ -29,6 +31,9 @@ namespace TMulticom
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddScoped<IBaseRepository<Jogo>, JogoRepository>();
+            services.AddScoped<IBaseRepository<Amigo>, AmigoRepository>();
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
