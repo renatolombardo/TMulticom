@@ -7,7 +7,7 @@ using TMulticom.Domain.Models;
 
 namespace TMulticom.Data.Repositories
 {
-    public interface IJogoRepository : IBaseRepository<Jogo>, IEntity
+    public interface IJogoRepository : IBaseRepository<Jogo>
     {
 
     }

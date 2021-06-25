@@ -21,41 +21,47 @@ namespace TMulticom.Data.Repositories
             _dbSet = _context.Set<TEntity>();
         }
 
-        public virtual async Task<TEntity> AdicionarAsync(TEntity entity)
+        public virtual void Adicionar(TEntity entity)
         {
-            var r = await _dbSet.AddAsync(entity);
-            await CommitAsync();
-            return r.Entity;
+            _dbSet.Add(entity);
+            Commit();
+            
         }
 
-        public virtual async Task AtualizarAsync(TEntity entity)
+        public virtual void Atualizar(TEntity entity)
         {
             _dbSet.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
-            await CommitAsync();
+            Commit();
         }
 
-        public async Task<TEntity> ObterPorIdAsync(Guid id)
+        public virtual TEntity ObterPorId(Guid id)
         {
-            return await _dbSet.FindAsync(id);
+            return _dbSet.Find(id) ;
         }
 
-        public async Task<IEnumerable<TEntity>> ObterTodosAsync()
+        public virtual IEnumerable<TEntity> ObterTodos()
         {
-            return await Task.FromResult(_dbSet);
+            return _dbSet;
         }
 
-        public Task RemoverAsync(TEntity entity)
+        public virtual void Remover(TEntity entity)
         {
-;           _dbSet.Remove(entity);
-            return CommitAsync();
+            _dbSet.Remove(entity);
+            Commit();
         }
 
-        private async Task<int> CommitAsync()
+        public virtual void RemoverPorId(Guid id)
         {
-            return await _context.SaveChangesAsync();
+            var item = _dbSet.Find(id);
+            _dbSet.Remove(item);
+            Commit();
         }
 
-        
+        public void Commit()
+        {
+            _context.SaveChanges();
+        }
+
     }
 }

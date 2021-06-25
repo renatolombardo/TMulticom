@@ -9,11 +9,12 @@ namespace TMulticom.Data.Repositories
 {
     public interface IBaseRepository<TEntity> where TEntity : class
     {
-        Task<TEntity> AdicionarAsync(TEntity entity);
-        Task<TEntity> ObterPorIdAsync(Guid id);
-        Task<IEnumerable<TEntity>> ObterTodosAsync();
-        Task AtualizarAsync(TEntity entity);
-        Task RemoverAsync(TEntity entity);
+        void Adicionar(TEntity entity);
+        TEntity ObterPorId(Guid id);
+        IEnumerable<TEntity> ObterTodos();
+        void Atualizar(TEntity entity);
+        void Remover(TEntity entity);
+        void RemoverPorId(Guid id);
 
     }
 }

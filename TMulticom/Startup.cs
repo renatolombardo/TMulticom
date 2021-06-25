@@ -33,7 +33,7 @@ namespace TMulticom
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IBaseRepository<Jogo>, JogoRepository>();
-            services.AddScoped<IBaseRepository<Amigo>, AmigoRepository>();
+            services.AddScoped<IAmigoRepository, AmigoRepository>();
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 

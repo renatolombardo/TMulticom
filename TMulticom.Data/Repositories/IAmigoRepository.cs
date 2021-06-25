@@ -7,7 +7,7 @@ using TMulticom.Domain.Models;
 
 namespace TMulticom.Data.Repositories
 {
-    public interface IAmigoRepository : IBaseRepository<Amigo>, IEntity
+    public interface IAmigoRepository : IBaseRepository<Amigo>
     {
 
     }
