@@ -6,13 +6,8 @@ using System.Threading.Tasks;
 
 namespace TMulticom.Domain.Models
 {
-    public abstract class Entity : IEntity
+    public interface IEntity
     {
-        protected Entity()
-        {
-            Id = Guid.NewGuid();
-        }
-
-        public Guid Id { get; set; }
+        Guid Id { get; set; }
     }
 }

@@ -24,7 +24,7 @@ namespace TMulticom.Domain.Models
         [MaxLength(MAX_NOME_AMIGO_TAMANHO)]
         public string Nome { get; private set; }
 
-        public IReadOnlyCollection<Jogo> Jogos { get => _jogos.ToArray(); }
+        public virtual IReadOnlyCollection<Jogo> Jogos { get => _jogos.ToArray(); }
 
         public void EmprestarJogo(Jogo jogo)
         {
@@ -37,7 +37,5 @@ namespace TMulticom.Domain.Models
             jogo.DataEmprestimo = null;
             _jogos.Remove(jogo);
         }
-
-
     }
 }

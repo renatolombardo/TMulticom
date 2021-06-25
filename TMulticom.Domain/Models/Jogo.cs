@@ -20,13 +20,14 @@ namespace TMulticom.Domain.Models
 
         [Required]
         [MaxLength(MAX_NOME_JOGO_TAMANHO)]
-        public string Nome { get; set; }
+        public string Nome { get; private set; }
         public DateTime? DataEmprestimo { get; set; }
-        public Guid? AmigoId { get; set; }
+        public Guid? AmigoId { get; private set; }
         
         [ForeignKey("AmigoId")]
-        public Amigo Amigo { get; set; }
+        public virtual Amigo Amigo { get; set; }
 
+        
 
     }
 }
