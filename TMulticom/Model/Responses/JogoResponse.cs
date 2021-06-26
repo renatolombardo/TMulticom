@@ -7,5 +7,8 @@ namespace TMulticom.Web.Model.Responses
 {
     public class JogoResponse : Response
     {
+        public string Nome { get; set; }
+        public DateTime? DataEmprestimo { get; set; }
+        public AmigoResponse Amigo { get; set; }
     }
 }

@@ -10,10 +10,10 @@ namespace TMulticom.Domain.Services
 {
     public class EmprestimoService : IEmprestimoService
     {
-        private readonly IBaseRepository<Jogo> _jogoRepository;
+        private readonly IJogoRepository _jogoRepository;
         private readonly IAmigoRepository _amigoRepository;
 
-        public EmprestimoService(IBaseRepository<Jogo> jogoRepository, IAmigoRepository amigoRepository)
+        public EmprestimoService(IJogoRepository jogoRepository, IAmigoRepository amigoRepository)
         {
             _jogoRepository = jogoRepository;
             _amigoRepository = amigoRepository;

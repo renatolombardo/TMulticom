@@ -35,12 +35,16 @@ namespace TMulticom
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddScoped<IBaseRepository<Jogo>, JogoRepository>();
+            services.AddControllersWithViews()
+                    .AddNewtonsoftJson(options =>
+                        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+            services.AddScoped<IJogoRepository, JogoRepository>();
             services.AddScoped<IAmigoRepository, AmigoRepository>();
             services.AddScoped<IEmprestimoService, EmprestimoService>();
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
-            
+
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 

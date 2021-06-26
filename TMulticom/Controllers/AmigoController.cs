@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using TMulticom.Domain.Data;
 using TMulticom.Domain.Models;
 using TMulticom.Domain.Services;
 using TMulticom.Web.Model.Requests;
+using TMulticom.Web.Model.Responses;
 
 namespace TMulticom.Controllers
 {
@@ -19,44 +21,68 @@ namespace TMulticom.Controllers
     {
         private readonly IAmigoRepository _amigoRepository;
         private readonly IEmprestimoService _emprestimoService;
+        private readonly IMapper _mapper;
 
-        public AmigoController(IAmigoRepository amigoRepository, IEmprestimoService emprestimoService)
+        public AmigoController(IAmigoRepository amigoRepository, IEmprestimoService emprestimoService, IMapper mapper)
         {
             _amigoRepository = amigoRepository;
             _emprestimoService = emprestimoService;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public IEnumerable<Amigo> Get()
+        public IEnumerable<AmigoResponse> Get()
         {
-            return _amigoRepository.ObterTodos();
+            var amigos = _amigoRepository.ObterTodos();
+            var ret = _mapper.Map<List<AmigoResponse>>(amigos);
+            return ret;
+
         }
 
         [HttpGet("{id}")]
-        public Amigo Get(Guid id)
+        public AmigoResponse Get(Guid id)
         {
-            return _amigoRepository.ObterPorId(id);
+            var amigo = _amigoRepository.ObterPorId(id);
+            var ret = _mapper.Map<AmigoResponse>(amigo);
+            return ret;
+
         }
 
         [HttpPost]
-        public ActionResult<Amigo> Post([FromBody]Amigo amigo)
+        public ActionResult<AmigoResponse> Post([FromBody] AmigoRequest amigo)
         {
-            _amigoRepository.Adicionar(amigo);
-
-            return Ok(amigo);
+            var ret = _mapper.Map<Amigo>(amigo);
+            _amigoRepository.Adicionar(ret);
+            return Ok(ret);
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
+            var amigo = _amigoRepository.ObterPorId(id);
+
+            if (amigo == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                foreach (var item in amigo.Jogos)
+                {
+                    item.RemoverEmprestimo();
+                }
+            }
+
+
             _amigoRepository.RemoverPorId(id);
             return Ok();
         }
 
         [HttpPut]
-        public IActionResult Put([FromBody]Amigo amigo)
+        public IActionResult Put([FromBody] AmigoRequest amigo)
         {
-            _amigoRepository.Atualizar(amigo);
+            var upd = _mapper.Map<Amigo>(amigo);
+            _amigoRepository.Atualizar(upd);
             return Ok();
         }
 
@@ -64,17 +90,31 @@ namespace TMulticom.Controllers
         [Route("emprestarjogo")]
         public IActionResult Post([FromBody] EmprestarJogoRequest request)
         {
-            _emprestimoService.EmprestarJogo(request.JogoId, request.AmigoId);
+            try
+            {
+                _emprestimoService.EmprestarJogo(request.JogoId, request.AmigoId);
 
-            return Ok();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
         [Route("devolverjogo/{id}")]
         public IActionResult Post(Guid id)
         {
-            _emprestimoService.DevolverJogo(id);
-            return Ok();
+            try
+            {
+                _emprestimoService.DevolverJogo(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

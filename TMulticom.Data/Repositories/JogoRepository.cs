@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,20 @@ namespace TMulticom.Data.Repositories
             _context = context;
         }
 
+        public override IEnumerable<Jogo> ObterTodos()
+        {
+            var ret = _context.Jogos.Include(x => x.Amigo);
+            return ret;
+        }
+
+        public override Jogo ObterPorId(Guid id)
+        {
+            var ret = _context.Jogos
+                .Include(x => x.Amigo)
+                .FirstOrDefault(x => x.Id == id);
+            return ret;
+        }
+
         public IEnumerable<Jogo> ObterJogosDisponiveis()
         {
             return _context.Jogos.Where(x => x.AmigoId == null);
@@ -23,7 +38,9 @@ namespace TMulticom.Data.Repositories
 
         public IEnumerable<Jogo> ObterJogosEmprestados()
         {
-            return _context.Jogos.Where(x => x.AmigoId != null);
+            var ret = _context.Jogos.Where(x => x.AmigoId != null)
+                .Include(x => x.Amigo);
+            return ret;
         }
     }
 }

@@ -12,10 +12,9 @@ namespace TMulticom.Domain.Models
     {
         public const int MAX_NOME_JOGO_TAMANHO = 255;
 
-        public Jogo(string nome, DateTime? dataEmprestimo)
+        public Jogo(string nome)
         {
             Nome = nome;
-            DataEmprestimo = dataEmprestimo;
         }
 
         [Required]
@@ -23,8 +22,10 @@ namespace TMulticom.Domain.Models
         public string Nome { get; private set; }
         public DateTime? DataEmprestimo { get; private set; }
 
-        [ForeignKey("AmigoId")]
         public Guid? AmigoId { get; private set; }
+
+        [ForeignKey("AmigoId")]
+        public Amigo Amigo { get; set; }
 
         public void InformarEmprestimo(Guid amigoId)
         {
