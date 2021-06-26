@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System.Reflection;
 using TMulticom.Data;
 using TMulticom.Data.Repositories;
 using TMulticom.Domain.Data;
@@ -37,6 +38,9 @@ namespace TMulticom
             services.AddScoped<IBaseRepository<Jogo>, JogoRepository>();
             services.AddScoped<IAmigoRepository, AmigoRepository>();
             services.AddScoped<IEmprestimoService, EmprestimoService>();
+
+            services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 

@@ -9,5 +9,6 @@ namespace TMulticom.Domain.Services
     public interface IEmprestimoService
     {
         void EmprestarJogo(Guid jogoId, Guid amigoId);
+        void DevolverJogo(Guid jogoId);
     }
 }

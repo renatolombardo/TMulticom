@@ -9,6 +9,7 @@ namespace TMulticom.Domain.Data
 {
     public interface IJogoRepository : IBaseRepository<Jogo>
     {
-
+        IEnumerable<Jogo> ObterJogosDisponiveis();
+        IEnumerable<Jogo> ObterJogosEmprestados();
     }
 }

@@ -68,5 +68,13 @@ namespace TMulticom.Controllers
 
             return Ok();
         }
+
+        [HttpPost]
+        [Route("devolverjogo/{id}")]
+        public IActionResult Post(Guid id)
+        {
+            _emprestimoService.DevolverJogo(id);
+            return Ok();
+        }
     }
 }

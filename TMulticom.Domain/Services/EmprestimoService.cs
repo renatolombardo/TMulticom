@@ -26,15 +26,33 @@ namespace TMulticom.Domain.Services
             var jogo = _jogoRepository.ObterPorId(jogoId);
 
             //Validações
+            if (amigo == null)
+                throw new Exception("Amigo não encontrado");
 
+            if (jogo == null)
+                throw new Exception("Jogo não encontrado");
 
-            jogo.AmigoId = amigoId;
-            jogo.DataEmprestimo = DateTime.Now;
+            if (jogo.DataEmprestimo != null || jogo.AmigoId != null)
+                throw new Exception("Jogo já emprestado");
 
-            _jogoRepository.Commit();
+            jogo.InformarEmprestimo(amigoId);
+
+            _jogoRepository.Salvar();
+        }
+
+        public void DevolverJogo(Guid jogoId)
+        {
+            var jogo = _jogoRepository.ObterPorId(jogoId);
+
+            //Validações
+            if (jogo == null)
+                throw new Exception("Jogo não encontrado");
+
+            jogo.RemoverEmprestimo();
+
+            _jogoRepository.Salvar();
 
         }
 
-        
     }
 }

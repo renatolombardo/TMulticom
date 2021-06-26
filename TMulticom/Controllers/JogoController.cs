@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,44 +16,44 @@ namespace TMulticom.Controllers
     [Route("[controller]")]
     public class JogoController : ControllerBase
     {
-        private readonly IBaseRepository<Jogo> _JogoRepository;
+        private readonly IBaseRepository<Jogo> _jogoRepository;
 
         public JogoController(IBaseRepository<Jogo> JogoRepository)
         {
-            _JogoRepository = JogoRepository;
+            _jogoRepository = JogoRepository;
         }
 
         [HttpGet]
         public IEnumerable<Jogo> Get()
         {
-            return _JogoRepository.ObterTodos();
+            return _jogoRepository.ObterTodos();
         }
 
         [HttpGet("{id}")]
         public Jogo Get(Guid id)
         {
-            return _JogoRepository.ObterPorId(id);
+            return _jogoRepository.ObterPorId(id);
         }
 
         [HttpPost]
-        public ActionResult<Jogo> Post([FromBody] Jogo Jogo)
+        public ActionResult<Jogo> Post([FromBody] Jogo jogo)
         {
-            _JogoRepository.Adicionar(Jogo);
+            _jogoRepository.Adicionar(jogo);
 
-            return Ok(Jogo);
+            return Ok(jogo);
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
-            _JogoRepository.RemoverPorId(id);
+            _jogoRepository.RemoverPorId(id);
             return Ok();
         }
 
         [HttpPut]
-        public IActionResult Put([FromBody] Jogo Jogo)
+        public IActionResult Put([FromBody] Jogo jogo)
         {
-            _JogoRepository.Atualizar(Jogo);
+            _jogoRepository.Atualizar(jogo);
             return Ok();
         }
 

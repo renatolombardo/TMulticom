@@ -7,15 +7,15 @@ using TMulticom.Domain.Models;
 
 namespace TMulticom.Domain.Data
 {
-    public interface IBaseRepository<TEntity> where TEntity : class
+    public interface IBaseRepository<T> where T : class
     {
-        void Adicionar(TEntity entity);
-        TEntity ObterPorId(Guid id);
-        IEnumerable<TEntity> ObterTodos();
-        void Atualizar(TEntity entity);
-        void Remover(TEntity entity);
+        void Adicionar(T entity);
+        T ObterPorId(Guid id);
+        IEnumerable<T> ObterTodos();
+        void Atualizar(T entity);
+        void Remover(T entity);
         void RemoverPorId(Guid id);
-        void Commit();
+        void Salvar();
 
 
     }

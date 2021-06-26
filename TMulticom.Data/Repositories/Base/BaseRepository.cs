@@ -25,7 +25,7 @@ namespace TMulticom.Data.Repositories
         public virtual void Adicionar(TEntity entity)
         {
             _dbSet.Add(entity);
-            Commit();
+            Salvar();
             
         }
 
@@ -33,7 +33,7 @@ namespace TMulticom.Data.Repositories
         {
             _dbSet.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
-            Commit();
+            Salvar();
         }
 
         public virtual TEntity ObterPorId(Guid id)
@@ -49,17 +49,17 @@ namespace TMulticom.Data.Repositories
         public virtual void Remover(TEntity entity)
         {
             _dbSet.Remove(entity);
-            Commit();
+            Salvar();
         }
 
         public virtual void RemoverPorId(Guid id)
         {
             var item = _dbSet.Find(id);
             _dbSet.Remove(item);
-            Commit();
+            Salvar();
         }
 
-        public void Commit()
+        public void Salvar()
         {
             _context.SaveChanges();
         }
