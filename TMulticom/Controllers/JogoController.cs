@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TMulticom.Data.Repositories;
+using TMulticom.Domain.Data;
 using TMulticom.Domain.Models;
+using TMulticom.Web.Model.Requests;
 
 namespace TMulticom.Controllers
 {
@@ -53,5 +55,7 @@ namespace TMulticom.Controllers
             _JogoRepository.Atualizar(Jogo);
             return Ok();
         }
+
+        
     }
 }

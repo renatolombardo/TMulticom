@@ -11,7 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TMulticom.Data;
 using TMulticom.Data.Repositories;
+using TMulticom.Domain.Data;
 using TMulticom.Domain.Models;
+using TMulticom.Domain.Services;
 using TMulticom.Models;
 
 namespace TMulticom
@@ -34,6 +36,7 @@ namespace TMulticom
 
             services.AddScoped<IBaseRepository<Jogo>, JogoRepository>();
             services.AddScoped<IAmigoRepository, AmigoRepository>();
+            services.AddScoped<IEmprestimoService, EmprestimoService>();
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 

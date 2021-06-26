@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TMulticom.Domain.Models;
 
-namespace TMulticom.Data.Repositories
+namespace TMulticom.Domain.Data
 {
     public interface IBaseRepository<TEntity> where TEntity : class
     {
@@ -15,6 +15,8 @@ namespace TMulticom.Data.Repositories
         void Atualizar(TEntity entity);
         void Remover(TEntity entity);
         void RemoverPorId(Guid id);
+        void Commit();
+
 
     }
 }

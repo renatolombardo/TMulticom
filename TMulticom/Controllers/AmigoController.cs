@@ -5,7 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TMulticom.Data.Repositories;
+using TMulticom.Domain.Data;
 using TMulticom.Domain.Models;
+using TMulticom.Domain.Services;
+using TMulticom.Web.Model.Requests;
 
 namespace TMulticom.Controllers
 {
@@ -15,10 +18,12 @@ namespace TMulticom.Controllers
     public class AmigoController : ControllerBase
     {
         private readonly IAmigoRepository _amigoRepository;
+        private readonly IEmprestimoService _emprestimoService;
 
-        public AmigoController(IAmigoRepository amigoRepository)
+        public AmigoController(IAmigoRepository amigoRepository, IEmprestimoService emprestimoService)
         {
             _amigoRepository = amigoRepository;
+            _emprestimoService = emprestimoService;
         }
 
         [HttpGet]
@@ -52,6 +57,15 @@ namespace TMulticom.Controllers
         public IActionResult Put([FromBody]Amigo amigo)
         {
             _amigoRepository.Atualizar(amigo);
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("emprestarjogo")]
+        public IActionResult Post([FromBody] EmprestarJogoRequest request)
+        {
+            _emprestimoService.EmprestarJogo(request.JogoId, request.AmigoId);
+
             return Ok();
         }
     }

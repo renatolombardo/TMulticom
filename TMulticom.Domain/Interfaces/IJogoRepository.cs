@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using TMulticom.Domain.Models;
 
-namespace TMulticom.Data.Repositories
+namespace TMulticom.Domain.Data
 {
-    public interface IAmigoRepository : IBaseRepository<Amigo>
+    public interface IJogoRepository : IBaseRepository<Jogo>
     {
 
     }
