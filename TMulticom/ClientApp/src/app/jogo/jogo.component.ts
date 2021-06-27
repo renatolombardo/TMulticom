@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Jogo } from '../interfaces/jogo';
+import { Jogo } from '../models/jogo';
 
 @Component({
   selector: 'app-jogo',

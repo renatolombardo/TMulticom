@@ -1,4 +1,4 @@
-export interface Emprestimo {
+export class Emprestimo {
   amigoId: string;
   jogoId: string;
 }

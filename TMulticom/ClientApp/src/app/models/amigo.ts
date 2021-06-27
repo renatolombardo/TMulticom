@@ -1,6 +1,6 @@
 import { Jogo } from "./jogo";
 
-export interface Amigo {
+export class Amigo {
   id: string;
   nome: string;
   jogos: Jogo[];

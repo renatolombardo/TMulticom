@@ -4,10 +4,9 @@
   <thead>
     <tr>
       <th>Nome do Jogo</th>
-      <th>Data do Empréstimo</th>
+      <th>Data do EmprÃ©stimo</th>
       <th>Emprestado Para</th>
       <th></th>
-      <td></td>
       <td></td>
       <td></td>
     </tr>
@@ -17,8 +16,10 @@
       <td>{{ jogo.nome }}</td>
       <td>{{ jogo.dataEmprestimo | date: 'dd/MM/yyyy' }}</td>
       <td>{{ jogo.amigo?.nome }}</td>
-      <td><button (click)="emprestarJogo(jogo.id)">Emprestar</button></td>
-      <td><button (click)="devolverJogo(jogo.id, jogo.amigoId)">Devolver</button></td>
+      <td>
+        <button *ngIf="!jogo.amigo && !jogo.dataEmprestimo" (click)="emprestarJogo(jogo.id)">Emprestar</button>
+        <button *ngIf="jogo.amigo || jogo.dataEmprestimo" (click)="devolverJogo(jogo.id, jogo.amigoId)">Devolver</button>
+      </td>
       <td><button (click)="editarJogo(jogo.id)">Editar</button></td>
       <td><button (click)="excluirJogo(jogo.id)">Excluir</button></td>
     </tr>
