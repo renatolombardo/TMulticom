@@ -12,6 +12,8 @@ import { ApiAuthorizationModule } from 'src/api-authorization/api-authorization.
 import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
 import { JogoComponent } from './jogo/jogo.component';
+import { CreateEditJogoComponent } from './jogo/create-edit-jogo/create-edit-jogo.component';
+import { EmprestarJogoComponent } from './jogo/emprestar-jogo/emprestar-jogo.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { JogoComponent } from './jogo/jogo.component';
     NavMenuComponent,
     HomeComponent,
     FetchDataComponent,
-    JogoComponent
+    JogoComponent,
+    CreateEditJogoComponent,
+    EmprestarJogoComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -30,6 +34,9 @@ import { JogoComponent } from './jogo/jogo.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
       { path: 'jogos', component: JogoComponent, canActivate: [AuthorizeGuard] },
+      { path: 'jogos/inserir', component: CreateEditJogoComponent, canActivate: [AuthorizeGuard] },
+      { path: 'jogos/editar/:id', component: CreateEditJogoComponent, canActivate: [AuthorizeGuard] },
+      { path: 'jogos/emprestar/:id', component: EmprestarJogoComponent, canActivate: [AuthorizeGuard] },
     ])
   ],
   providers: [

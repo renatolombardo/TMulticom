@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,23 +8,26 @@ using System.Threading.Tasks;
 using TMulticom.Data.Repositories;
 using TMulticom.Domain.Data;
 using TMulticom.Domain.Models;
+using TMulticom.Domain.Services;
 using TMulticom.Web.Model.Requests;
 using TMulticom.Web.Model.Responses;
 
 namespace TMulticom.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class JogoController : ControllerBase
     {
         private readonly IJogoRepository _jogoRepository;
+        private readonly IEmprestimoService _emprestimoService;
         private readonly IMapper _mapper;
 
-        public JogoController(IJogoRepository jogoRepository, IMapper mapper)
+        public JogoController(IJogoRepository jogoRepository, IMapper mapper, IEmprestimoService emprestimoService)
         {
             _jogoRepository = jogoRepository;
             _mapper = mapper;
+            _emprestimoService = emprestimoService;
         }
 
         [HttpGet]
@@ -81,6 +85,36 @@ namespace TMulticom.Controllers
             var jogos = _jogoRepository.ObterJogosEmprestados();
             var result = _mapper.Map<List<JogoResponse>>(jogos);
             return result;
+        }
+        [HttpPost]
+        [Route("emprestar")]
+        public IActionResult Post([FromBody] EmprestarJogoRequest request)
+        {
+            try
+            {
+                _emprestimoService.EmprestarJogo(request.JogoId, request.AmigoId);
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("devolver/{id}")]
+        public IActionResult Post(Guid id)
+        {
+            try
+            {
+                _emprestimoService.DevolverJogo(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
 

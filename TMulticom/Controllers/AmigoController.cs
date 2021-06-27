@@ -14,7 +14,7 @@ using TMulticom.Web.Model.Responses;
 
 namespace TMulticom.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class AmigoController : ControllerBase
@@ -86,35 +86,6 @@ namespace TMulticom.Controllers
             return Ok();
         }
 
-        [HttpPost]
-        [Route("emprestarjogo")]
-        public IActionResult Post([FromBody] EmprestarJogoRequest request)
-        {
-            try
-            {
-                _emprestimoService.EmprestarJogo(request.JogoId, request.AmigoId);
-
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        [HttpPost]
-        [Route("devolverjogo/{id}")]
-        public IActionResult Post(Guid id)
-        {
-            try
-            {
-                _emprestimoService.DevolverJogo(id);
-                return Ok();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
+        
     }
 }

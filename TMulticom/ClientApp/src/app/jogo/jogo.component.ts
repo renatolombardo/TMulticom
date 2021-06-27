@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Jogo } from '../interfaces/jogo';
 
 @Component({
@@ -11,15 +12,51 @@ export class JogoComponent implements OnInit {
 
   public jogos: Jogo[];
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<Jogo[]>(baseUrl + 'jogo').subscribe(result => {
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private router: Router) {
+    
+  }
+
+  public obterJogos() {
+
+    this.http.get<Jogo[]>(this.baseUrl + 'jogo').subscribe(result => {
       this.jogos = result;
       console.log(this.jogos);
     },
       error => console.error(error));
   }
 
-  ngOnInit() {
+  public excluirJogo(id: string) {
+    this.http.delete<Jogo[]>(this.baseUrl + 'jogo/' + id).subscribe(result => {
+      this.obterJogos();
+    },
+      error => console.error(error));
   }
+
+  public inserirJogo() {
+    this.router.navigateByUrl("jogos/inserir");
+  }
+
+  public editarJogo(id: string) {
+    this.router.navigateByUrl("jogos/editar/" + id);
+  }
+
+  public emprestarJogo(id: string) {
+    this.router.navigateByUrl("jogos/emprestar/" + id);
+  }
+
+  public devolverJogo(id: string) {
+    this.http.post<string>(this.baseUrl + 'jogo/devolver/' + id, id).subscribe(result => {
+      this.obterJogos();
+    },
+      error => console.error(error));
+  }
+
+  ngOnInit() {
+    this.obterJogos();
+  }
+
+
+
+  
 
 }
