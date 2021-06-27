@@ -13,6 +13,7 @@ import { AuthorizeInterceptor } from 'src/api-authorization/authorize.intercepto
 import { JogoComponent } from './jogo/jogo.component';
 import { CreateEditJogoComponent } from './jogo/create-edit-jogo/create-edit-jogo.component';
 import { EmprestarJogoComponent } from './jogo/emprestar-jogo/emprestar-jogo.component';
+import { JogoService } from './services/jogo.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { EmprestarJogoComponent } from './jogo/emprestar-jogo/emprestar-jogo.com
     ])
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
+    JogoService
   ],
   bootstrap: [AppComponent]
 })

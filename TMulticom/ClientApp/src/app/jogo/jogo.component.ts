@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Jogo } from '../models/jogo';
+import { JogoService } from '../services/jogo.service';
 
 @Component({
   selector: 'app-jogo',
@@ -11,17 +12,21 @@ import { Jogo } from '../models/jogo';
 export class JogoComponent implements OnInit {
 
   public jogos: Jogo[];
+  public carregado: boolean = false;
 
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private router: Router) {
+  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private router: Router, private jogoService: JogoService) {
     
   }
 
   public obterJogos() {
 
-    this.http.get<Jogo[]>(this.baseUrl + 'jogo').subscribe(result => {
-      this.jogos = result;
-    },
-      error => console.error(error));
+    //this.http.get<Jogo[]>(this.baseUrl + 'jogo').subscribe(result => {
+    //  this.jogos = result;
+    //  this.carregado = true;
+    //},
+    //  error => console.error(error));
+    this.jogos = this.jogoService.obterJogos();
+
   }
 
   public excluirJogo(id: string) {
