@@ -20,13 +20,11 @@ namespace TMulticom.Controllers
     public class AmigoController : ControllerBase
     {
         private readonly IAmigoRepository _amigoRepository;
-        private readonly IEmprestimoService _emprestimoService;
         private readonly IMapper _mapper;
 
-        public AmigoController(IAmigoRepository amigoRepository, IEmprestimoService emprestimoService, IMapper mapper)
+        public AmigoController(IAmigoRepository amigoRepository, IMapper mapper)
         {
             _amigoRepository = amigoRepository;
-            _emprestimoService = emprestimoService;
             _mapper = mapper;
         }
 

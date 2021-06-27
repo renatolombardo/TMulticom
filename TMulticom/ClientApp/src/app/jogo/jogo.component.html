@@ -4,7 +4,7 @@
   <thead>
     <tr>
       <th>Nome do Jogo</th>
-      <th>Data do Emprestimo</th>
+      <th>Data do Empréstimo</th>
       <th>Emprestado Para</th>
       <th></th>
       <td></td>
@@ -15,7 +15,7 @@
   <tbody>
     <tr *ngFor="let jogo of jogos">
       <td>{{ jogo.nome }}</td>
-      <td>{{ jogo.dataEmprestimo }}</td>
+      <td>{{ jogo.dataEmprestimo | date: 'dd/MM/yyyy' }}</td>
       <td>{{ jogo.amigo?.nome }}</td>
       <td><button (click)="emprestarJogo(jogo.id)">Emprestar</button></td>
       <td><button (click)="devolverJogo(jogo.id, jogo.amigoId)">Devolver</button></td>

@@ -14,7 +14,7 @@ using TMulticom.Web.Model.Responses;
 
 namespace TMulticom.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("[controller]")]
     public class JogoController : ControllerBase
@@ -86,6 +86,7 @@ namespace TMulticom.Controllers
             var result = _mapper.Map<List<JogoResponse>>(jogos);
             return result;
         }
+
         [HttpPost]
         [Route("emprestar")]
         public IActionResult Post([FromBody] EmprestarJogoRequest request)

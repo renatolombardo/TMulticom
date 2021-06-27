@@ -7,7 +7,6 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { ApiAuthorizationModule } from 'src/api-authorization/api-authorization.module';
 import { AuthorizeGuard } from 'src/api-authorization/authorize.guard';
 import { AuthorizeInterceptor } from 'src/api-authorization/authorize.interceptor';
@@ -20,7 +19,6 @@ import { EmprestarJogoComponent } from './jogo/emprestar-jogo/emprestar-jogo.com
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    FetchDataComponent,
     JogoComponent,
     CreateEditJogoComponent,
     EmprestarJogoComponent
@@ -32,11 +30,10 @@ import { EmprestarJogoComponent } from './jogo/emprestar-jogo/emprestar-jogo.com
     ApiAuthorizationModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
-      { path: 'jogos', component: JogoComponent, canActivate: [AuthorizeGuard] },
-      { path: 'jogos/inserir', component: CreateEditJogoComponent, canActivate: [AuthorizeGuard] },
-      { path: 'jogos/editar/:id', component: CreateEditJogoComponent, canActivate: [AuthorizeGuard] },
-      { path: 'jogos/emprestar/:id', component: EmprestarJogoComponent, canActivate: [AuthorizeGuard] },
+      { path: 'jogo', component: JogoComponent, canActivate: [AuthorizeGuard] },
+      { path: 'jogo/inserir', component: CreateEditJogoComponent, canActivate: [AuthorizeGuard] },
+      { path: 'jogo/editar/:id', component: CreateEditJogoComponent, canActivate: [AuthorizeGuard] },
+      { path: 'jogo/emprestar/:id', component: EmprestarJogoComponent, canActivate: [AuthorizeGuard] },
     ])
   ],
   providers: [

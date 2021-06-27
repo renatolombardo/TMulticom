@@ -20,7 +20,6 @@ export class JogoComponent implements OnInit {
 
     this.http.get<Jogo[]>(this.baseUrl + 'jogo').subscribe(result => {
       this.jogos = result;
-      console.log(this.jogos);
     },
       error => console.error(error));
   }
@@ -33,15 +32,15 @@ export class JogoComponent implements OnInit {
   }
 
   public inserirJogo() {
-    this.router.navigateByUrl("jogos/inserir");
+    this.router.navigateByUrl("jogo/inserir");
   }
 
   public editarJogo(id: string) {
-    this.router.navigateByUrl("jogos/editar/" + id);
+    this.router.navigateByUrl("jogo/editar/" + id);
   }
 
   public emprestarJogo(id: string) {
-    this.router.navigateByUrl("jogos/emprestar/" + id);
+    this.router.navigateByUrl("jogo/emprestar/" + id);
   }
 
   public devolverJogo(id: string) {
