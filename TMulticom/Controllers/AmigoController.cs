@@ -34,7 +34,8 @@ namespace TMulticom.Controllers
         public IEnumerable<AmigoResponse> Get()
         {
             var amigos = _amigoRepository.ObterTodos()
-                .Where(x => x.UserId == _userId);
+                .Where(x => x.UserId == _userId)
+                .OrderBy(x => x.Nome);
             var ret = _mapper.Map<List<AmigoResponse>>(amigos);
             return ret;
 
