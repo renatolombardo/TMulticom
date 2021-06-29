@@ -1,18 +1,25 @@
 <h1>Cadastro/Alteração de Jogo</h1>
+<div *ngIf="sucesso" class="alert alert-success" role="alert">
+  Jogo {{jogo.nome}} cadastrado/alterado com sucesso.
+</div>
 <div class="row">
   <div class="col-md-4">
     <form>
       <div class="form-group">
         <label>Nome do Jogo</label>
-        <input class="form-control" type="text" name="nome" [(ngModel)]="jogo.nome"/>
+        <input class="form-control" type="text" name="nome" [(ngModel)]="jogo.nome" />
       </div>
-      <button class="button" *ngIf="!id" (click)="inserir()">Inserir</button>
-      <button class="button" *ngIf="id" (click)="atualizar()">Atualizar</button>
     </form>
   </div>
 </div>
-<div class="row" *ngIf="sucesso">
-  <div class="col-md-4">
-    Jogo {{jogo.nome}} cadastrado/alterado com sucesso.
+
+<div class="row">
+  <div class="col-md-6">
+    <button type="button" class="btn btn-primary" *ngIf="!id" (click)="inserir()">Inserir</button>
+    <button type="button" class="btn btn-primary" *ngIf="id" (click)="atualizar()">Atualizar</button>
+
+  </div>
+  <div class="col-md-6">
+    <button type="button" class="btn btn-secondary" [routerLink]="'/jogo'">Voltar para Jogos</button>
   </div>
 </div>

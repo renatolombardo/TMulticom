@@ -42,5 +42,6 @@ namespace TMulticom.Data.Repositories
                 .Include(x => x.Amigo);
             return ret;
         }
+
     }
 }

@@ -1,0 +1,24 @@
+<h1>Cadastro/Manutenção de Amigos</h1>
+<div>
+  <button type="button" class="btn btn-primary" (click)="inserirAmigo()">Novo Amigo</button>
+</div>
+
+<table *ngIf="amigos && amigos.length > 0" class='table table-striped' aria-labelledby="tableLabel">
+  <thead>
+    <tr>
+      <th>Nome do Amigo</th>
+      <th>Jogo(s) Emprestado(s)?</th>
+      <td></td>
+      <td></td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let amigo of amigos">
+      <td>{{ amigo.nome }}</td>
+      <td>{{ amigo.jogos && amigo.jogos.length > 0 ? 'Sim' : 'Não' }}</td>
+      <td><button type="button" class="btn btn-info" (click)="editarAmigo(amigo.id)">Editar</button></td>
+      <td><button type="button" class="btn btn-danger" (click)="excluirAmigo(amigo.id)">Excluir</button></td>
+    </tr>
+  </tbody>
+</table>
+<div *ngIf="carregado == false">Carregando amigos...</div>

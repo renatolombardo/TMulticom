@@ -1,0 +1,44 @@
+<h1>Cadastro/Alteração de Amigo</h1>
+<div *ngIf="sucesso" class="alert alert-success" role="alert">
+  Amigo {{amigo.nome}} cadastrado/alterado com sucesso.
+</div>
+<div class="row">
+  <div class="col-md-4">
+    <form>
+      <div class="form-group">
+        <label>Nome do Amigo</label>
+        <input class="form-control" type="text" name="nome" [(ngModel)]="amigo.nome" />
+
+        
+
+      </div>
+    </form>
+  </div>
+  <div class="col-md-8">
+    <table *ngIf="id && amigo.jogos && amigo.jogos.length > 0" class='table table-striped' aria-labelledby="tableLabel">
+      <thead>
+        <tr>
+          <th>Nome do Jogo</th>
+          <td>Data de Empréstimo</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let jogo of amigo.jogos">
+          <td>{{ jogo.nome }}</td>
+          <td>{{ jogo.dataEmprestimo | date: 'dd/MM/yyyy' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-6">
+    <button type="button" class="btn btn-primary" *ngIf="!id" (click)="inserir()">Inserir</button>
+    <button type="button" class="btn btn-primary" *ngIf="id" (click)="atualizar()">Atualizar</button>
+    
+  </div>
+  <div class="col-md-6">
+    <button type="button" class="btn btn-secondary" [routerLink]="'/amigo'">Voltar para Amigos</button>
+  </div>
+</div>
+

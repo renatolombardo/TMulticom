@@ -14,7 +14,7 @@ using TMulticom.Web.Model.Responses;
 
 namespace TMulticom.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class JogoController : ControllerBase
@@ -117,7 +117,6 @@ namespace TMulticom.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
 
     }
 }

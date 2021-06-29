@@ -14,6 +14,9 @@ import { JogoComponent } from './jogo/jogo.component';
 import { CreateEditJogoComponent } from './jogo/create-edit-jogo/create-edit-jogo.component';
 import { EmprestarJogoComponent } from './jogo/emprestar-jogo/emprestar-jogo.component';
 import { JogoService } from './services/jogo.service';
+import { AmigoComponent } from './amigo/amigo.component';
+import { AmigoService } from './services/amigo.service';
+import { CreateEditAmigoComponent } from './amigo/create-edit-amigo/create-edit-amigo.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { JogoService } from './services/jogo.service';
     HomeComponent,
     JogoComponent,
     CreateEditJogoComponent,
-    EmprestarJogoComponent
+    EmprestarJogoComponent,
+    AmigoComponent,
+    CreateEditAmigoComponent
+
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -35,11 +41,15 @@ import { JogoService } from './services/jogo.service';
       { path: 'jogo/inserir', component: CreateEditJogoComponent, canActivate: [AuthorizeGuard] },
       { path: 'jogo/editar/:id', component: CreateEditJogoComponent, canActivate: [AuthorizeGuard] },
       { path: 'jogo/emprestar/:id', component: EmprestarJogoComponent, canActivate: [AuthorizeGuard] },
+      { path: 'amigo', component: AmigoComponent, canActivate: [AuthorizeGuard] },
+      { path: 'amigo/inserir', component: CreateEditAmigoComponent, canActivate: [AuthorizeGuard] },
+      { path: 'amigo/editar/:id', component: CreateEditAmigoComponent, canActivate: [AuthorizeGuard] },
     ])
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
-    JogoService
+    JogoService,
+    AmigoService
   ],
   bootstrap: [AppComponent]
 })

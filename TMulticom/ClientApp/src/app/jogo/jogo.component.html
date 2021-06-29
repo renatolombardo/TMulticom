@@ -1,4 +1,5 @@
-<div><button (click)="inserirJogo()">Novo Jogo</button></div>
+<h1>Cadastro/Manutenção de Jogos</h1>
+<div><button type="button" class="btn btn-primary" (click)="inserirJogo()">Novo Jogo</button></div>
 
 <table *ngIf="jogos && jogos.length > 0" class='table table-striped' aria-labelledby="tableLabel">
   <thead>
@@ -17,11 +18,11 @@
       <td>{{ jogo.dataEmprestimo | date: 'dd/MM/yyyy' }}</td>
       <td>{{ jogo.amigo?.nome }}</td>
       <td>
-        <button *ngIf="!jogo.amigo && !jogo.dataEmprestimo" (click)="emprestarJogo(jogo.id)">Emprestar</button>
-        <button *ngIf="jogo.amigo || jogo.dataEmprestimo" (click)="devolverJogo(jogo.id, jogo.amigoId)">Devolver</button>
+        <button type="button" class="btn btn-warning" *ngIf="!jogo.amigo && !jogo.dataEmprestimo" (click)="emprestarJogo(jogo.id)">Emprestar</button>
+        <button type="button" class="btn btn-success" *ngIf="jogo.amigo || jogo.dataEmprestimo" (click)="devolverJogo(jogo.id, jogo.amigoId)">Devolver</button>
       </td>
-      <td><button (click)="editarJogo(jogo.id)">Editar</button></td>
-      <td><button (click)="excluirJogo(jogo.id)">Excluir</button></td>
+      <td><button type="button" class="btn btn-info" (click)="editarJogo(jogo.id)">Editar</button></td>
+      <td><button type="button" class="btn btn-danger" (click)="excluirJogo(jogo.id)">Excluir</button></td>
     </tr>
   </tbody>
 </table>

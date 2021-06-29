@@ -1,1 +1,34 @@
-<p>emprestar-jogo works!</p>
+<div *ngIf="jogo && amigos">
+  <h1>Emprestar jogo {{jogo.nome}}</h1>
+
+  <div *ngIf="mensagemErro" class="alert alert-error" role="alert">
+    {{mensagemErro}}
+  </div>
+  
+  <div *ngIf="emprestado" class="alert alert-success" role="alert">
+    Jogo emprestado com sucesso!
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <label>Selecione o amigo</label>
+      <select class="form-control" name="amigo" [(ngModel)]="amigoId" [disabled]="emprestado">
+        <option></option>
+        <option *ngFor="let amigo of amigos" [value]="amigo.id">
+          {{amigo.nome}}
+        </option>
+      </select>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-md-6">
+      <button [disabled]="emprestado" class="btn btn-primary" type="button" (click)="emprestar()">Emprestar Jogo</button>
+    </div>
+    <div class="col-md-6">
+      <button class="btn btn-secondary" type="button" [routerLink]="'/jogo'">Voltar para Jogos</button>
+    </div>
+  </div>
+
+
+</div>
