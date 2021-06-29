@@ -10,7 +10,12 @@ namespace TMulticom.Test.FakeRepositories
 {
     public class JogoRepositoryFake : IJogoRepository
     {
-        private List<Jogo> _bd = new List<Jogo>();
+        private List<Jogo> _bd;
+
+        public JogoRepositoryFake()
+        {
+            _bd = new List<Jogo>();
+        }
 
         public void Adicionar(Jogo entity)
         {

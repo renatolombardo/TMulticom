@@ -29,6 +29,9 @@ namespace TMulticom.Domain.Models
 
         public void InformarEmprestimo(Guid amigoId)
         {
+            if (DataEmprestimo != null || AmigoId != null)
+                throw new Exception($"Jogo já emprestado.");
+
             DataEmprestimo = DateTime.Now;
             AmigoId = amigoId;
         }

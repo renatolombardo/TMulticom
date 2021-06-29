@@ -32,9 +32,6 @@ namespace TMulticom.Domain.Services
             if (jogo == null)
                 throw new Exception("Jogo não encontrado");
 
-            if (jogo.DataEmprestimo != null || jogo.AmigoId != null)
-                throw new Exception("Jogo já emprestado");
-
             jogo.InformarEmprestimo(amigoId);
 
             _jogoRepository.Salvar();

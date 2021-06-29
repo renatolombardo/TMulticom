@@ -14,8 +14,13 @@ namespace TMulticom.Test.RepositoryTests
     [TestClass]
     public class JogoRepositoryTests
     {
-        private JogoRepositoryFake _repository = new JogoRepositoryFake();
+        private JogoRepositoryFake _repository;
         private Jogo _jogo;
+
+        public JogoRepositoryTests()
+        {
+            _repository = new JogoRepositoryFake();
+        }
 
         [TestMethod]
         [DataRow("Teste")]

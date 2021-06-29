@@ -22,4 +22,8 @@
     <ProjectReference Include="..\TMulticom\TMulticom.Web.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="FakeServices\" />
+  </ItemGroup>
+
 </Project>
