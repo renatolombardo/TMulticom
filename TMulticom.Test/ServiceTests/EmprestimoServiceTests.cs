@@ -53,7 +53,7 @@ namespace TMulticom.Test.ServiceTests
 
             var jogoEmprestado = _jogoRepository.ObterPorId(jogo.Id);
 
-            Assert.IsNotNull(jogoEmprestado.AmigoId);
+            Assert.IsTrue(jogoEmprestado.AmigoId != null && jogoEmprestado.DataEmprestimo != null);
         }
 
         [TestMethod]
