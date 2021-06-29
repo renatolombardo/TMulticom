@@ -25,6 +25,11 @@ namespace TMulticom.Domain.Models
         public string Nome { get; private set; }
 
         public IReadOnlyCollection<Jogo> Jogos { get => _jogos.ToArray(); }
+
+        public void DefinirNome(string nome)
+        {
+            Nome = nome;
+        }
         
     }
 }

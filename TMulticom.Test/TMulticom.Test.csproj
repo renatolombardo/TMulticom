@@ -16,4 +16,10 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\TMulticom.Data\TMulticom.Data.csproj" />
+    <ProjectReference Include="..\TMulticom.Domain\TMulticom.Domain.csproj" />
+    <ProjectReference Include="..\TMulticom\TMulticom.Web.csproj" />
+  </ItemGroup>
+
 </Project>

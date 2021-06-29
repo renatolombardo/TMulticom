@@ -39,6 +39,11 @@ namespace TMulticom.Domain.Models
             AmigoId = null;
         }
 
+        public void DefinirNome(string nome)
+        {
+            Nome = nome;
+        }
+
        
 
 
