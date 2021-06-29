@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using TMulticom.Data.Repositories;
 using TMulticom.Domain.Data;
@@ -22,6 +23,7 @@ namespace TMulticom.Controllers
         private readonly IAmigoRepository _amigoRepository;
         private readonly IMapper _mapper;
 
+        private Guid _userId => Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
         public AmigoController(IAmigoRepository amigoRepository, IMapper mapper)
         {
             _amigoRepository = amigoRepository;
@@ -31,7 +33,8 @@ namespace TMulticom.Controllers
         [HttpGet]
         public IEnumerable<AmigoResponse> Get()
         {
-            var amigos = _amigoRepository.ObterTodos();
+            var amigos = _amigoRepository.ObterTodos()
+                .Where(x => x.UserId == _userId);
             var ret = _mapper.Map<List<AmigoResponse>>(amigos);
             return ret;
 
@@ -43,15 +46,15 @@ namespace TMulticom.Controllers
             var amigo = _amigoRepository.ObterPorId(id);
             var ret = _mapper.Map<AmigoResponse>(amigo);
             return ret;
-
         }
 
         [HttpPost]
         public ActionResult<AmigoResponse> Post([FromBody] AmigoRequest amigo)
         {
             var ret = _mapper.Map<Amigo>(amigo);
+            ret.DefinirUserId(_userId);
             _amigoRepository.Adicionar(ret);
-            return Ok(ret);
+            return Ok();
         }
 
         [HttpDelete("{id}")]
@@ -79,7 +82,8 @@ namespace TMulticom.Controllers
         [HttpPut]
         public IActionResult Put([FromBody] AmigoRequest amigo)
         {
-            var upd = _mapper.Map<Amigo>(amigo);
+            var amigoRep = _amigoRepository.ObterPorId(amigo.Id);
+            var upd = _mapper.Map(amigo, amigoRep);            
             _amigoRepository.Atualizar(upd);
             return Ok();
         }

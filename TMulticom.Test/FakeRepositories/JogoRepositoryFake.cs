@@ -28,12 +28,12 @@ namespace TMulticom.Test.FakeRepositories
             item = entity;
         }
 
-        public IEnumerable<Jogo> ObterJogosDisponiveis()
+        public IEnumerable<Jogo> ObterJogosDisponiveis(Guid userId)
         {
             return _bd.Where(x => x.DataEmprestimo == null && x.AmigoId == null);
         }
 
-        public IEnumerable<Jogo> ObterJogosEmprestados()
+        public IEnumerable<Jogo> ObterJogosEmprestados(Guid userId)
         {
             return _bd.Where(x => x.DataEmprestimo != null || x.AmigoId != null);
         }

@@ -14,5 +14,11 @@ namespace TMulticom.Domain.Models
         }
 
         public Guid Id { get; set; }
+        public Guid UserId { get; set; }
+
+        public void DefinirUserId(Guid userId)
+        {
+            UserId = userId;
+        }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using TMulticom.Domain.Models;
 using TMulticom.Web.Model.Requests;
@@ -13,10 +14,18 @@ namespace TMulticom.Web.Profiles
     {
         public DefaultProfile()
         {
-            CreateMap<Amigo, AmigoRequest>().ReverseMap();
-            CreateMap<Jogo, JogoRequest>().ReverseMap();
-            CreateMap<Amigo, AmigoResponse>().ReverseMap();
-            CreateMap<Jogo, JogoResponse>().ReverseMap();
+            CreateMap<Amigo, AmigoRequest>()
+                .ForSourceMember(x => x.UserId, opt => opt.DoNotValidate())
+                .ReverseMap();
+            CreateMap<Jogo, JogoRequest>()
+                .ForSourceMember(x => x.UserId, opt => opt.DoNotValidate())
+                .ReverseMap();
+            CreateMap<Amigo, AmigoResponse>()
+                .ForSourceMember(x => x.UserId, opt => opt.DoNotValidate())
+                .ReverseMap();
+            CreateMap<Jogo, JogoResponse>()
+                .ForSourceMember(x => x.UserId, opt => opt.DoNotValidate())
+                .ReverseMap();
         }
     }
 }

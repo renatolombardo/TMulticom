@@ -9,5 +9,6 @@ namespace TMulticom.Domain.Models
     public interface IEntity
     {
         Guid Id { get; set; }
+        Guid UserId { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using TMulticom.Data.Repositories;
 using TMulticom.Domain.Data;
@@ -23,17 +24,21 @@ namespace TMulticom.Controllers
         private readonly IEmprestimoService _emprestimoService;
         private readonly IMapper _mapper;
 
+        private Guid _userId => Guid.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
         public JogoController(IJogoRepository jogoRepository, IMapper mapper, IEmprestimoService emprestimoService)
         {
             _jogoRepository = jogoRepository;
             _mapper = mapper;
             _emprestimoService = emprestimoService;
+            
         }
 
         [HttpGet]
         public IEnumerable<JogoResponse> Get()
         {
-            var jogos = _jogoRepository.ObterTodos();
+            var jogos = _jogoRepository.ObterTodos()
+                .Where(x => x.UserId == _userId);
             var ret = _mapper.Map<List<JogoResponse>>(jogos);
             return ret;
         }
@@ -50,6 +55,7 @@ namespace TMulticom.Controllers
         public ActionResult<JogoResponse> Post([FromBody] JogoRequest jogo)
         {
             var add = _mapper.Map<Jogo>(jogo);
+            add.DefinirUserId(_userId);
             _jogoRepository.Adicionar(add);
             return Ok(add);
         }
@@ -57,6 +63,11 @@ namespace TMulticom.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
+            var jogo = _jogoRepository.ObterPorId(id);
+
+            if (jogo.UserId != _userId)
+                return NotFound();
+
             _jogoRepository.RemoverPorId(id);
             return Ok();
         }
@@ -64,7 +75,13 @@ namespace TMulticom.Controllers
         [HttpPut]
         public IActionResult Put([FromBody] JogoRequest jogo)
         {
-            var upd = _mapper.Map<Jogo>(jogo);
+            var jogoRep = _jogoRepository.ObterPorId(jogo.Id);
+
+            if (jogoRep.UserId != _userId)
+                return NotFound();
+
+            var upd = _mapper.Map(jogo, jogoRep);
+
             _jogoRepository.Atualizar(upd);
             return Ok();
         }
@@ -73,7 +90,7 @@ namespace TMulticom.Controllers
         [Route("disponiveis")]
         public IEnumerable<JogoResponse> JogosDisponiveis()
         {
-            var jogos = _jogoRepository.ObterJogosDisponiveis();
+            var jogos = _jogoRepository.ObterJogosDisponiveis(_userId);
             var result = _mapper.Map<List<JogoResponse>>(jogos);
             return result;
         }
@@ -82,7 +99,7 @@ namespace TMulticom.Controllers
         [Route("emprestados")]
         public IEnumerable<JogoResponse> JogosEmprestados()
         {
-            var jogos = _jogoRepository.ObterJogosEmprestados();
+            var jogos = _jogoRepository.ObterJogosEmprestados(_userId);
             var result = _mapper.Map<List<JogoResponse>>(jogos);
             return result;
         }
@@ -92,7 +109,7 @@ namespace TMulticom.Controllers
         public IActionResult Post([FromBody] EmprestarJogoRequest request)
         {
             try
-            {
+            {                               
                 _emprestimoService.EmprestarJogo(request.JogoId, request.AmigoId);
 
                 return Ok();

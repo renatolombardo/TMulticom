@@ -13,7 +13,6 @@ namespace TMulticom.Domain.Models
         public const int MAX_NOME_AMIGO_TAMANHO = 255;
 
         private IList<Jogo> _jogos;
-
         public Amigo(string nome)
         {
             Nome = nome;

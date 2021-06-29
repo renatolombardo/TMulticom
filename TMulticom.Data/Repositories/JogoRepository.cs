@@ -31,14 +31,14 @@ namespace TMulticom.Data.Repositories
             return ret;
         }
 
-        public IEnumerable<Jogo> ObterJogosDisponiveis()
+        public IEnumerable<Jogo> ObterJogosDisponiveis(Guid userId)
         {
-            return _context.Jogos.Where(x => x.AmigoId == null);
+            return _context.Jogos.Where(x => x.AmigoId == null && x.UserId == userId);
         }
 
-        public IEnumerable<Jogo> ObterJogosEmprestados()
+        public IEnumerable<Jogo> ObterJogosEmprestados(Guid userId)
         {
-            var ret = _context.Jogos.Where(x => x.AmigoId != null)
+            var ret = _context.Jogos.Where(x => x.AmigoId != null && x.UserId == userId) 
                 .Include(x => x.Amigo);
             return ret;
         }
