@@ -41,9 +41,13 @@ namespace TMulticom.Controllers
         }
 
         [HttpGet("{id}")]
-        public AmigoResponse Get(Guid id)
+        public ActionResult<AmigoResponse> Get(Guid id)
         {
             var amigo = _amigoRepository.ObterPorId(id);
+
+            if (amigo.UserId != _userId)
+                return NotFound();
+
             var ret = _mapper.Map<AmigoResponse>(amigo);
             return ret;
         }
@@ -62,7 +66,7 @@ namespace TMulticom.Controllers
         {
             var amigo = _amigoRepository.ObterPorId(id);
 
-            if (amigo == null)
+            if (amigo == null || amigo.UserId != _userId)
             {
                 return NotFound();
             }
@@ -74,7 +78,6 @@ namespace TMulticom.Controllers
                 }
             }
 
-
             _amigoRepository.RemoverPorId(id);
             return Ok();
         }
@@ -83,6 +86,10 @@ namespace TMulticom.Controllers
         public IActionResult Put([FromBody] AmigoRequest amigo)
         {
             var amigoRep = _amigoRepository.ObterPorId(amigo.Id);
+
+            if (amigoRep.UserId != _userId)
+                return NotFound();
+
             var upd = _mapper.Map(amigo, amigoRep);            
             _amigoRepository.Atualizar(upd);
             return Ok();
