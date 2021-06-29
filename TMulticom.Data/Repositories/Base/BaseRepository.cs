@@ -10,7 +10,7 @@ using TMulticom.Domain.Models;
 
 namespace TMulticom.Data.Repositories
 {
-    public class BaseRepository<T> : IBaseRepository<T> where T : class
+    public class BaseRepository<T> : IBaseRepository<T> where T : Entity
     {
 
         private readonly ApplicationDbContext _context;
@@ -41,9 +41,9 @@ namespace TMulticom.Data.Repositories
             return _dbSet.Find(id) ;
         }
 
-        public virtual IEnumerable<T> ObterTodos()
+        public virtual IEnumerable<T> ObterTodosPorUserId(Guid userId)
         {
-            return _dbSet;
+            return _dbSet.Where(x => x.UserId == userId);
         }
 
         public virtual void Remover(T entity)

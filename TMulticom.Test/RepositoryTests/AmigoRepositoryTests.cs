@@ -23,29 +23,33 @@ namespace TMulticom.Test.RepositoryTests
         {
             _amigo = new Amigo(nome);
             _repository.Adicionar(_amigo);
-            var amigos = _repository.ObterTodos();
+            var amigos = _repository.ObterTodosPorUserId(new Guid());
             Assert.IsTrue(amigos.Count() > 0);
         }
 
         [TestMethod]
         public void Excluir_Amigo_Sucesso()
         {
-            Inserir_Amigo_Sucesso("teste");
-            var amigo = _repository.ObterTodos().FirstOrDefault();
+            var id = new Guid();
+            _amigo = new Amigo("Teste");
+            _repository.Adicionar(_amigo);
+            var amigo = _repository.ObterTodosPorUserId(id).FirstOrDefault();
             _repository.Remover(amigo);
-            var amigos = _repository.ObterTodos();
+            var amigos = _repository.ObterTodosPorUserId(id);
             Assert.IsTrue(amigos.Count() == 0);
         }
 
         [TestMethod]
         public void Editar_Amigo_Sucesso()
         {
+            var id = new Guid();
             var nome = "teste";
-            Inserir_Amigo_Sucesso(nome);
-            var amigo = _repository.ObterTodos().FirstOrDefault();            
+            _amigo = new Amigo(nome);
+            _repository.Adicionar(_amigo);
+            var amigo = _repository.ObterTodosPorUserId(id).FirstOrDefault();            
             amigo.DefinirNome("teste 2");           
             _repository.Atualizar(amigo);
-            var amigo2 = _repository.ObterTodos().FirstOrDefault();
+            var amigo2 = _repository.ObterTodosPorUserId(id).FirstOrDefault();
             Assert.IsTrue(amigo2.Nome != nome);
         }
     }

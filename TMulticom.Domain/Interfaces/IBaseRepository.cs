@@ -11,7 +11,7 @@ namespace TMulticom.Domain.Data
     {
         void Adicionar(T entity);
         T ObterPorId(Guid id);
-        IEnumerable<T> ObterTodos();
+        IEnumerable<T> ObterTodosPorUserId(Guid userId);
         void Atualizar(T entity);
         void Remover(T entity);
         void RemoverPorId(Guid id);

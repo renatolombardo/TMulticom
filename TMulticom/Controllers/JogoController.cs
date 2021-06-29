@@ -37,8 +37,7 @@ namespace TMulticom.Controllers
         [HttpGet]
         public IEnumerable<JogoResponse> Get()
         {
-            var jogos = _jogoRepository.ObterTodos()
-                .Where(x => x.UserId == _userId)
+            var jogos = _jogoRepository.ObterTodosPorUserId(_userId)
                 .OrderBy(x => x.Nome);
             var ret = _mapper.Map<List<JogoResponse>>(jogos);
             return ret;
@@ -70,7 +69,7 @@ namespace TMulticom.Controllers
         {
             var jogo = _jogoRepository.ObterPorId(id);
 
-            if (jogo.UserId != _userId)
+            if (jogo == null || jogo.UserId != _userId)
                 return NotFound();
 
             _jogoRepository.RemoverPorId(id);
@@ -82,7 +81,7 @@ namespace TMulticom.Controllers
         {
             var jogoRep = _jogoRepository.ObterPorId(jogo.Id);
 
-            if (jogoRep.UserId != _userId)
+            if (jogoRep == null || jogoRep.UserId != _userId)
                 return NotFound();
 
             var upd = _mapper.Map(jogo, jogoRep);
@@ -95,7 +94,8 @@ namespace TMulticom.Controllers
         [Route("disponiveis")]
         public IEnumerable<JogoResponse> JogosDisponiveis()
         {
-            var jogos = _jogoRepository.ObterJogosDisponiveis(_userId).OrderBy(x => x.Nome);
+            var jogos = _jogoRepository.ObterJogosDisponiveis(_userId)
+                .OrderBy(x => x.Nome);
             var result = _mapper.Map<List<JogoResponse>>(jogos);
             return result;
         }
@@ -104,7 +104,8 @@ namespace TMulticom.Controllers
         [Route("emprestados")]
         public IEnumerable<JogoResponse> JogosEmprestados()
         {
-            var jogos = _jogoRepository.ObterJogosEmprestados(_userId).OrderBy(x => x.Nome);
+            var jogos = _jogoRepository.ObterJogosEmprestados(_userId)
+                .OrderBy(x => x.Nome);
             var result = _mapper.Map<List<JogoResponse>>(jogos);
             return result;
         }

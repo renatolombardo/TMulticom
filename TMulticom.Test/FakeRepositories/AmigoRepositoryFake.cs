@@ -33,7 +33,7 @@ namespace TMulticom.Test.FakeRepositories
             return _bd.FirstOrDefault(x => x.Id == id);
         }
 
-        public IEnumerable<Amigo> ObterTodos()
+        public IEnumerable<Amigo> ObterTodosPorUserId(Guid userId)
         {
             return _bd;
         }

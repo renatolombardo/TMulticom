@@ -17,17 +17,13 @@ namespace TMulticom.Data.Repositories
             _context = context;
         }
 
-        public override IEnumerable<Jogo> ObterTodos()
-        {
-            var ret = _context.Jogos.Include(x => x.Amigo);
-            return ret;
-        }
-
-        public override Jogo ObterPorId(Guid id)
+        public override IEnumerable<Jogo> ObterTodosPorUserId(Guid userId)
         {
             var ret = _context.Jogos
-                .Include(x => x.Amigo)
-                .FirstOrDefault(x => x.Id == id);
+                .Where(x => x.UserId == userId)
+                .Include(x => x.Amigo);
+            var x = base.ObterTodosPorUserId(userId);
+
             return ret;
         }
 

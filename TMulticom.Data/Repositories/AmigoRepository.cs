@@ -17,16 +17,19 @@ namespace TMulticom.Data.Repositories
             _context = context;
         }
 
-        public override IEnumerable<Amigo> ObterTodos()
+        public override IEnumerable<Amigo> ObterTodosPorUserId(Guid userId)
         {
-            var y = _context.Amigos.Include(x => x.Jogos);
+            var y = _context.Amigos
+                .Where(x => x.UserId == userId)
+                .Include(x => x.Jogos);
             return y;
         }
 
         public override Amigo ObterPorId(Guid id)
         {
-            var y = _context.Amigos.Include(x => x.Jogos).
-                FirstOrDefault(x => x.Id == id);
+            var y = _context.Amigos
+                .Include(x => x.Jogos)
+                .FirstOrDefault(x => x.Id == id);
             return y;
         }
 

@@ -28,29 +28,33 @@ namespace TMulticom.Test.RepositoryTests
         {
             _jogo = new Jogo(nome);
             _repository.Adicionar(_jogo);
-            var jogos = _repository.ObterTodos();
+            var jogos = _repository.ObterTodosPorUserId(new Guid());
             Assert.IsTrue(jogos.Count() > 0);
         }
 
         [TestMethod]
         public void Excluir_Jogo_Sucesso()
         {
-            Inserir_Jogo_Sucesso("teste");
-            var Jogo = _repository.ObterTodos().FirstOrDefault();
+            var id = new Guid();
+            _jogo = new Jogo("teste");
+            _repository.Adicionar(_jogo);
+            var Jogo = _repository.ObterTodosPorUserId(id).FirstOrDefault();
             _repository.Remover(Jogo);
-            var Jogos = _repository.ObterTodos();
+            var Jogos = _repository.ObterTodosPorUserId(id);
             Assert.IsTrue(Jogos.Count() == 0);
         }
 
         [TestMethod]
         public void Editar_Jogo_Sucesso()
         {
+            var id = new Guid();
             var nome = "teste";
-            Inserir_Jogo_Sucesso(nome);
-            var Jogo = _repository.ObterTodos().FirstOrDefault();
+            _jogo = new Jogo(nome);
+            _repository.Adicionar(_jogo);
+            var Jogo = _repository.ObterTodosPorUserId(id).FirstOrDefault();
             Jogo.DefinirNome("teste 2");
             _repository.Atualizar(Jogo);
-            var Jogo2 = _repository.ObterTodos().FirstOrDefault();
+            var Jogo2 = _repository.ObterTodosPorUserId(id).FirstOrDefault();
             Assert.IsTrue(Jogo2.Nome != nome);
         }
     }

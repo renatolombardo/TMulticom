@@ -43,7 +43,7 @@ namespace TMulticom.Test.FakeRepositories
             return _bd.FirstOrDefault(x => x.Id == id);
         }
 
-        public IEnumerable<Jogo> ObterTodos()
+        public IEnumerable<Jogo> ObterTodosPorUserId(Guid userId)
         {
             return _bd;
         }
