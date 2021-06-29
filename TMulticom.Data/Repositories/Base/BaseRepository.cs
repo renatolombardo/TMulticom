@@ -10,43 +10,43 @@ using TMulticom.Domain.Models;
 
 namespace TMulticom.Data.Repositories
 {
-    public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : class
+    public class BaseRepository<T> : IBaseRepository<T> where T : class
     {
 
         private readonly ApplicationDbContext _context;
-        private readonly DbSet<TEntity> _dbSet;
+        private readonly DbSet<T> _dbSet;
 
         public BaseRepository(ApplicationDbContext context)
         {
             _context = context;
-            _dbSet = _context.Set<TEntity>();
+            _dbSet = _context.Set<T>();
         }
 
-        public virtual void Adicionar(TEntity entity)
+        public virtual void Adicionar(T entity)
         {
             _dbSet.Add(entity);
             Salvar();
             
         }
 
-        public virtual void Atualizar(TEntity entity)
+        public virtual void Atualizar(T entity)
         {
             _dbSet.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
             Salvar();
         }
 
-        public virtual TEntity ObterPorId(Guid id)
+        public virtual T ObterPorId(Guid id)
         {
             return _dbSet.Find(id) ;
         }
 
-        public virtual IEnumerable<TEntity> ObterTodos()
+        public virtual IEnumerable<T> ObterTodos()
         {
             return _dbSet;
         }
 
-        public virtual void Remover(TEntity entity)
+        public virtual void Remover(T entity)
         {
             _dbSet.Remove(entity);
             Salvar();
