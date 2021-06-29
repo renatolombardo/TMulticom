@@ -29,9 +29,11 @@ export class JogoComponent implements OnInit {
   }
 
   public excluirJogo(id: string) {
-    this.jogoService.excluir(id).subscribe(() => {
-      this.obterJogos();
-    });
+    if (confirm('Deseja excluir esse jogo?')) {
+      this.jogoService.excluir(id).subscribe(() => {
+        this.obterJogos();
+      });
+    }
   }
 
   public inserirJogo() {

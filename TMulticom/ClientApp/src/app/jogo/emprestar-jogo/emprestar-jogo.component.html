@@ -23,9 +23,9 @@
   <br />
   <div class="row">
     <div class="col-md-6">
-      <button [disabled]="emprestado" class="btn btn-primary" type="button" (click)="emprestar()">Emprestar Jogo</button>
+      <button [disabled]="emprestado || !amigoId" class="btn btn-primary" type="button" (click)="emprestar()">Emprestar Jogo</button>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6" style="text-align: right">
       <button class="btn btn-secondary" type="button" [routerLink]="'/jogo'">Voltar para Jogos</button>
     </div>
   </div>
