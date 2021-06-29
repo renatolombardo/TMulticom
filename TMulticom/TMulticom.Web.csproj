@@ -12,6 +12,8 @@
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
     <AssemblyName>TMulticom.Web</AssemblyName>
     <RootNamespace>TMulticom.Web</RootNamespace>
+    <UserSecretsId>86d61247-874c-484f-839d-9e937f48ca4d</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,6 +31,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.14" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>

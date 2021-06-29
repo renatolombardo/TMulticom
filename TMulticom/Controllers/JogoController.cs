@@ -44,9 +44,13 @@ namespace TMulticom.Controllers
         }
 
         [HttpGet("{id}")]
-        public JogoResponse Get(Guid id)
+        public ActionResult<JogoResponse> Get(Guid id)
         {
             var jogo = _jogoRepository.ObterPorId(id);
+
+            if (jogo.UserId != _userId)
+                return NotFound();
+
             var ret = _mapper.Map<JogoResponse>(jogo);
             return ret;
         }
