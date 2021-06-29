@@ -12,7 +12,7 @@ export class CreateEditAmigoComponent implements OnInit {
 
   public amigo: Amigo = new Amigo();
   public sucesso: boolean = false;
-  private id: string;
+  public id: string;
 
   constructor(
     private activatedRoute: ActivatedRoute,

@@ -12,7 +12,7 @@ export class CreateEditJogoComponent implements OnInit {
 
   public jogo: Jogo = new Jogo();
   public sucesso: boolean = false;
-  private id: string;
+  public id: string;
 
   constructor(
     private activatedRoute: ActivatedRoute,

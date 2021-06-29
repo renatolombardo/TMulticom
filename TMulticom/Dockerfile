@@ -2,6 +2,8 @@
 
 FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
 WORKDIR /app
+RUN apt update -y \
+	&& apt install -y nodejs npm 
 EXPOSE 80
 EXPOSE 443
 
